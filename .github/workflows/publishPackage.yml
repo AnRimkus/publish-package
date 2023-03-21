@@ -9,9 +9,17 @@ jobs:
   installNPM:
     runs-on: ubuntu-latest
     steps:
-      - run: npm install
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      #https://github.com/AnRimkus/continuous-integration-training - Step 1
+      - name: Run markdown lint
+        run: |
+         npm install remark-cli remark-preset-lint-consistent
+         npx remark . --use remark-preset-lint-consistent --frail
     
   build:
+    needs: installNPM
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
