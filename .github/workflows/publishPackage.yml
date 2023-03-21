@@ -9,10 +9,7 @@ jobs:
   installNPM:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 19.8.1
-      - run: npm install --save-exact
+      - run: npm install
     
   build:
     runs-on: ubuntu-latest
