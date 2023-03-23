@@ -20,7 +20,7 @@ jobs:
           registry-url: 'https://npm.pkg.github.com/'
           scope: '@my-scope'
         env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPMTOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.MY_TOKEN }}
       - run: npm ci
       #- run: npm test
 
@@ -37,7 +37,7 @@ jobs:
           node-version: 18.15.0
           registry-url: 'https://npm.pkg.github.com/'
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPMTOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.MY_TOKEN }}
       - run: npm ci
       - run: npm publish --access public
 
