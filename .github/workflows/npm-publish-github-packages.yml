@@ -17,6 +17,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.15.0
+          registry-url: 'https://registry.npmjs.org/'
+          scope: '@my-scope'
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPMTOKEN }}
       - run: npm ci
       #- run: npm test
 
@@ -32,7 +36,8 @@ jobs:
         with:
           node-version: 18.15.0
           registry-url: https://npm.pkg.github.com/
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPMTOKEN }}
       - run: npm ci
       - run: npm publish #--access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
