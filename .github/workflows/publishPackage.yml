@@ -1,0 +1,44 @@
+name: Node.js Package
+
+on:
+  pull_request:
+    branches:
+      - main
+      
+jobs:
+  installNPM:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      #https://github.com/AnRimkus/continuous-integration-training - Step 1
+      - name: Run markdown lint
+        run: |
+         npm install remark-cli remark-preset-lint-consistent
+         npx remark . --use remark-preset-lint-consistent --frail
+    
+  build:
+    needs: installNPM
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 19.8.1
+      - run: npm ci
+      - run: npm test
+
+  publish-gpr:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 19.8.1
+          registry-url: https://npm.pkg.github.com/
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
