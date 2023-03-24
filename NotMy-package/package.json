@@ -1,6 +1,6 @@
 {
     "name": "@anrimkus/publish-package",
-    "version": "0.0.1",
+    "version": "0.0.1.1",
     "description": "📦 npm package tutorial",
     "main": "index.js",
     "scripts": {
